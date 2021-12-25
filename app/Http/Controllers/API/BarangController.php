@@ -21,6 +21,7 @@ class BarangController extends Controller
             foreach ($barang as $b) {
                 $pemasukan = Pemasukan::where('barang_id', $b->id)->orderBy('created_at', 'DESC')->first();
                 $pengeluaran = Pengeluaran::where('barang_id', $b->id)->orderBy('created_at', 'DESC')->first();
+                $tmp['id'] = $b->id;
                 $tmp['nama_barang'] = $b->nama_barang;
                 $tmp['foto'] = $b->foto;
                 $tmp['stok'] = $b->stok;
