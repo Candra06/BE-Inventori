@@ -61,7 +61,7 @@ class BarangController extends Controller
             $input['nama_barang'] = $request->nama_barang;
             $input['stok'] = $request->stok;
             $input['status'] = $request->status;
-            
+
 
             Barang::create($input);
             return response()->json([
@@ -69,6 +69,7 @@ class BarangController extends Controller
                 'message' => 'Success'
             ]);
         } catch (\Throwable $th) {
+            return $th;
             return response()->json([
                 'status_code' => 401,
                 'message' => $th,
