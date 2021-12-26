@@ -29,14 +29,14 @@ class BarangController extends Controller
                     $tmp['jumlah_masuk'] = $pemasukan->jumlah;
                     $tmp['tanggal_masuk'] = $pemasukan->created_at;
                 } else {
-                    $tmp['jumlah_masuk'] = 0;
+                    $tmp['jumlah_masuk'] = "0";
                     $tmp['tanggal_masuk'] = '-';
                 }
                 if ($pengeluaran) {
                     $tmp['jumlah_keluar'] = $pengeluaran->jumlah;
                     $tmp['tanggal_keluar'] = $pengeluaran->created_at;
                 } else {
-                    $tmp['jumlah_keluar'] = 0;
+                    $tmp['jumlah_keluar'] = "0";
                     $tmp['tanggal_keluar'] = '-';
                 }
                 array_push($data, $tmp);
