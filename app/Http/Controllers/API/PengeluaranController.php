@@ -52,6 +52,27 @@ class PengeluaranController extends Controller
         }
     }
 
+    public function filter($bulan)
+    {
+        try {
+            $data = Pengeluaran::leftJoin('barang', 'barang.id', 'pengeluaran.barang_id')
+                ->select('barang.nama_barang', 'pengeluaran.*')
+                ->whereMonth('pengeluaran.created_at', $bulan)
+                ->get();
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Success',
+                'data' => $data
+            ]);
+        } catch (\Throwable $th) {
+            return $th;
+            return response()->json([
+                'status_code' => 401,
+                'message' => 'Failed create data'
+            ]);
+        }
+    }
+
     public function update(Request $request, $id)
     {
         try {
@@ -77,6 +98,27 @@ class PengeluaranController extends Controller
             return response()->json([
                 'status_code' => 401,
                 'message' => 'Failed create data'
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $data = Pengeluaran::where('id', $id)->first();
+            $barang = Barang::where('id', $data->barang_id)->first();
+            $tmpStok = $barang->stok + $data->jumlah;
+            Barang::where('id', $data->barang_id)->update(['stok' => $tmpStok]);
+            Pengeluaran::where('id', $id)->delete();
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Success'
+            ]);
+        } catch (\Throwable $th) {
+            return $th;
+            return response()->json([
+                'status_code' => 401,
+                'message' => $th
             ]);
         }
     }

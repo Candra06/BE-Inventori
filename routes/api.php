@@ -27,12 +27,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('pemasukan')->group(function () {
         Route::post('create', 'API\PemasukanController@store');
+        Route::get('delete/{id}', 'API\PemasukanController@delete');
         Route::post('update/{id}', 'API\PemasukanController@update');
         Route::get('list', 'API\PemasukanController@index');
+        Route::get('filter/{bulan}', 'API\PemasukanController@filter');
     });
     Route::prefix('pengeluaran')->group(function () {
         Route::post('create', 'API\PengeluaranController@store');
+        Route::get('delete/{id}', 'API\PengeluaranController@delete');
         Route::post('update/{id}', 'API\PengeluaranController@update');
         Route::get('list', 'API\PengeluaranController@index');
+        Route::get('filter/{bulan}', 'API\PengeluaranController@filter');
     });
 });
