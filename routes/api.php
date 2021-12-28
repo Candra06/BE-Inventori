@@ -15,20 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('barang')->group(function (){
-    Route::get('/list', 'API\BarangController@index');
-    Route::post('/create', 'API\BarangController@store');
-    Route::get('/detail/{id}', 'API\BarangController@show');
-    Route::post('/update/{id}', 'API\BarangController@update');
-});
 
-Route::prefix('pemasukan')->group(function(){
-    Route::post('create', 'API\PemasukanController@store');
-});
-Route::prefix('pengeluaran')->group(function(){
-    Route::post('create', 'API\PengeluaranController@store');
-});
 Route::post('/login', 'API\AuthController@login');
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::prefix('barang')->group(function () {
+        Route::get('/list', 'API\BarangController@index');
+        Route::post('/create', 'API\BarangController@store');
+        Route::get('/detail/{id}', 'API\BarangController@show');
+        Route::post('/update/{id}', 'API\BarangController@update');
+    });
+
+    Route::prefix('pemasukan')->group(function () {
+        Route::post('create', 'API\PemasukanController@store');
+        Route::post('update/{id}', 'API\PemasukanController@update');
+        Route::get('list', 'API\PemasukanController@index');
+    });
+    Route::prefix('pengeluaran')->group(function () {
+        Route::post('create', 'API\PengeluaranController@store');
+        Route::post('update/{id}', 'API\PengeluaranController@update');
+        Route::get('list', 'API\PengeluaranController@index');
+    });
 });

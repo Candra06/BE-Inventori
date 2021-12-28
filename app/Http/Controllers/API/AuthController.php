@@ -13,22 +13,22 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        return $request->pin;
+        // return bcrypt($request->pin);
         try {
 
             $request->validate([
                 'pin' => 'required',
                 'username' => 'required'
             ]);
-            $credentials = request('pin');
-            if (!Auth::attempt($credentials)) {
-                return response()->json([
-                    'status_code' => 500,
-                    'message' => 'Unauthorized'
-                ]);
-            }
-            $user = User::where('username', $request->pin)->first();
-
+            // $credentials = request('username', 'pin');
+            // if (!Auth::attempt($credentials)) {
+            //     return response()->json([
+            //         'status_code' => 500,
+            //         'message' => 'Unauthorized'
+            //     ]);
+            // }
+            $user = User::where('username', $request->username)->first();
+            // return $request;
             if ($user) {
                 if (password_verify($request->pin, $user->pin)) {
                     $tokenResult = $user->createToken('authToken')->plainTextToken;
@@ -61,6 +61,7 @@ class AuthController extends Controller
                 throw new \Exception('Error in Login');
             }
         } catch (Exception $error) {
+            return $error;
             return response()->json([
                 'status_code' => 500,
                 'message' => 'Error in Login',
