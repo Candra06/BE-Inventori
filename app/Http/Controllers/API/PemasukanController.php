@@ -107,7 +107,7 @@ class PemasukanController extends Controller
         try {
             $data = Pemasukan::where('id', $id)->first();
             $barang = Barang::where('id', $data->barang_id)->first();
-            $tmpStok = $barang->stok + $data->jumlah;
+            $tmpStok = $barang->stok - $data->jumlah;
             Barang::where('id', $data->barang_id)->update(['stok' => $tmpStok]);
             Pemasukan::where('id', $id)->delete();
             return response()->json([
