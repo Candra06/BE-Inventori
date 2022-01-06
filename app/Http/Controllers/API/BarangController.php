@@ -61,6 +61,7 @@ class BarangController extends Controller
             $input['foto'] = Storage::putFileAs('foto', $request->file('foto'), $name);
             $input['nama_barang'] = $request->nama_barang;
             $input['stok'] = $request->stok;
+            $input['keterangan'] = $request->keterangan;
             $input['status'] = $request->status;
 
 
@@ -112,6 +113,7 @@ class BarangController extends Controller
             $input['nama_barang'] = $request->nama_barang;
             $input['stok'] = $request->stok;
             $input['status'] = $request->status;
+            $input['keterangan'] = $request->keterangan;
 
             Barang::where('id', $id)->update($input);
             return response()->json([
