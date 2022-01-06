@@ -25,6 +25,7 @@ class BarangController extends Controller
                 $tmp['nama_barang'] = $b->nama_barang;
                 $tmp['foto'] = $b->foto;
                 $tmp['stok'] = $b->stok;
+                $tmp['keterangan'] = $b->keterangan;
                 if ($pemasukan) {
                     $tmp['jumlah_masuk'] = $pemasukan->jumlah;
                     $tmp['tanggal_masuk'] = $pemasukan->created_at;
