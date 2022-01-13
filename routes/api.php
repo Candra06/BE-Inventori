@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/list', 'API\BarangController@index');
         Route::post('/create', 'API\BarangController@store');
         Route::get('/detail/{id}', 'API\BarangController@show');
+        Route::get('/delete/{id}', 'API\BarangController@destroy');
         Route::post('/update/{id}', 'API\BarangController@update');
     });
 

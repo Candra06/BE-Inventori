@@ -15,7 +15,7 @@ class BarangController extends Controller
     public function index()
     {
         try {
-            $barang = Barang::all();
+            $barang = Barang::where('status', 'Tersedia')->get();
             $data = [];
 
             foreach ($barang as $b) {
@@ -64,6 +64,8 @@ class BarangController extends Controller
             $input['stok'] = $request->stok;
             $input['keterangan'] = $request->keterangan;
             $input['status'] = $request->status;
+            $input['harga_barang'] = $request->harga_barang;
+            $input['ongkos_pembuatan'] = $request->ongkos_pembuatan;
 
 
             Barang::create($input);
@@ -115,8 +117,26 @@ class BarangController extends Controller
             $input['stok'] = $request->stok;
             $input['status'] = $request->status;
             $input['keterangan'] = $request->keterangan;
+            $input['harga_barang'] = $request->harga_barang;
+            $input['ongkos_pembuatan'] = $request->ongkos_pembuatan;
 
             Barang::where('id', $id)->update($input);
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Success'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status_code' => 401,
+                'message' => $th,
+            ]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            Barang::where('id', $id)->update(['status' => 'Habis']);
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Success'
