@@ -15,7 +15,7 @@ class BarangController extends Controller
     public function index()
     {
         try {
-            $barang = Barang::where('status', 'Tersedia')->get();
+            $barang = Barang::where('status', 'Tersedia')->orderBy('created_at', 'DESC')->get();
             $data = [];
 
             foreach ($barang as $b) {
